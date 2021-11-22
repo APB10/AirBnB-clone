@@ -14,7 +14,7 @@ import { useRouter } from "next/dist/client/router";
 
 
 
-function Header() {
+function Header({ placeholder }) {
     const [searchInput, setSearchInput] = useState("");
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -28,6 +28,19 @@ function Header() {
 
     const resetInput = () => {
         setSearchInput("");
+    }
+
+    const search = () => {
+        router.push({
+            pathname: "/search",
+            query: {
+                location: searchInput,
+                startDate: startDate.toISOString(),
+                endDate: endDate.toISOString(),
+                noOfGuests,
+            }
+        })
+
     }
 
     const selectionRange = {
@@ -55,7 +68,7 @@ function Header() {
                     onChange={(e) => setSearchInput(e.target.value)}
                     className="pl-5 bg-transparent outline-none flex-grow text-gray-600 text-sm placeholder-gray-400"
                     type="text"
-                    placeholder="Start your search"
+                    placeholder={placeholder || "Start your search" }
                 />
                 <SearchIcon className="hidden md:inline-flex h-8 bg-red-400 text-white rounded-full p-2 cursor-pointer md:mx-2" />
             </div>
@@ -69,7 +82,7 @@ function Header() {
                     <UserCircleIcon className="h-6" />
                 </div>
             </div>
-
+            {/* Middle - Search Display Date picker if middle search box has text  */}
             {searchInput && (
                 <div className="flex flex-col col-span-3 mx-auto mt-3">
                     <DateRangePicker ranges={[selectionRange]}
@@ -87,9 +100,10 @@ function Header() {
                             min={1}
                             className="w-12 pl=2 text-lg outline-none text-red-400" />
                     </div>
+                    {/* Calendar Buttons - Search & Cancel  */}
                     <div className="flex ">
                         <button onClick={resetInput} className="flex-grow text-gray-500">Cancel</button>
-                        <button className="flex-grow text-red-400">Search</button>
+                        <button onClick={search} className="flex-grow text-red-400">Search</button>
                     </div>
                 </div>
             )}
