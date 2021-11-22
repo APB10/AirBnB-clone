@@ -5,6 +5,7 @@ import getCenter from "geolib/es/getCenter";
 import { Result } from 'postcss';
 
 function Map({ searchResults }) {
+    const [ selectedLocation, setSelectedLocation ] = useState({});
   
     // transform search result object into the 
     // { latidude: 52.516277, longitude: 13.352322 } 
@@ -39,8 +40,24 @@ function Map({ searchResults }) {
                 offsetLeft={-20}
                 offsetTop={-10}
                 >
-                    
+                 <p onClick={() => setSelectedLocation(result)}
+                 className="cursor-pointer text-2xl animate-bounce">📌</p>
+
                 </Marker>
+
+                {/* The popup if marker clicked  */}
+                {selectedLocation.long === result.long ? (
+                    <Popup 
+                    onClose={() => setSelectedLocation({})}
+                    closeOnClick={true}
+                    latitude={result.lat}
+                    longitude={result.long}
+                    >
+                        {result.title}
+                    </Popup>
+                ):(
+                    false
+                )}
             </div>
         ))}
     </ReactMapGL>
