@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactMapGL, {Marker, Popup} from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 import { useState } from "react";
 import getCenter from "geolib/es/getCenter";
 import { Result } from 'postcss';
 
 function Map({ searchResults }) {
-    const [ selectedLocation, setSelectedLocation ] = useState({});
-  
+    const [selectedLocation, setSelectedLocation] = useState({});
+
     // transform search result object into the 
     // { latidude: 52.516277, longitude: 13.352322 } 
     // object 
@@ -35,27 +35,27 @@ function Map({ searchResults }) {
         {searchResults.map(result => (
             <div key={result.long}>
                 <Marker
-                longitude={result.long}
-                latitude={result.lat}
-                offsetLeft={-20}
-                offsetTop={-10}
+                    longitude={result.long}
+                    latitude={result.lat}
+                    offsetLeft={-20}
+                    offsetTop={-10}
                 >
-                 <p onClick={() => setSelectedLocation(result)}
-                 className="cursor-pointer text-2xl animate-bounce">📌</p>
+                    <p onClick={() => setSelectedLocation(result)}
+                        className="cursor-pointer text-2xl animate-bounce">📌</p>
 
                 </Marker>
 
                 {/* The popup if marker clicked  */}
                 {selectedLocation.long === result.long ? (
-                    <Popup 
-                    onClose={() => setSelectedLocation({})}
-                    closeOnClick={true}
-                    latitude={result.lat}
-                    longitude={result.long}
+                    <Popup
+                        onClose={() => setSelectedLocation({})}
+                        closeOnClick={true}
+                        latitude={result.lat}
+                        longitude={result.long}
                     >
                         {result.title}
                     </Popup>
-                ):(
+                ) : (
                     false
                 )}
             </div>
