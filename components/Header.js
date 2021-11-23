@@ -13,7 +13,6 @@ import { DateRangePicker } from "react-date-range";
 import { useRouter } from "next/dist/client/router";
 
 
-
 function Header({ placeholder }) {
     const [searchInput, setSearchInput] = useState("");
     const [startDate, setStartDate] = useState(new Date());
@@ -40,7 +39,6 @@ function Header({ placeholder }) {
                 noOfGuests,
             }
         })
-
     }
 
     const selectionRange = {
@@ -112,4 +110,4 @@ function Header({ placeholder }) {
     )
 }
 
-export default Header
+export default Header;

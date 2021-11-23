@@ -12,4 +12,4 @@ function MediumCard({ img, title }) {
     )
 }
 
-export default MediumCard
+export default MediumCard;
